@@ -147,3 +147,22 @@ window.addEventListener('DOMContentLoaded', () => {
         window.addEventListener(evt, playAudio, { once: true });
       });
     });
+
+const audio = document.getElementById('bgm');
+const muteBtn = document.getElementById('mute-btn');
+
+const speakerOn = `<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M2 6H5L8 3V13L5 10H2V6Z" fill="#e63946"/>
+  <path d="M10 6C11 7 11 9 10 10" stroke="#e63946" stroke-width="1.5" stroke-linecap="square"/>
+  <path d="M12 4.5C13.5 6.5 13.5 9.5 12 11.5" stroke="#e63946" stroke-width="1.5" stroke-linecap="square"/>
+</svg>`;
+
+const speakerOff = `<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M2 6H5L8 3V13L5 10H2V6Z" fill="#e63946"/>
+  <path d="M10 5L13 11M13 5L10 11" stroke="#e63946" stroke-width="1.5" stroke-linecap="square"/>
+</svg>`;
+
+muteBtn.addEventListener('click', () => {
+  audio.muted = !audio.muted;
+  muteBtn.innerHTML = audio.muted ? speakerOff : speakerOn;
+});
