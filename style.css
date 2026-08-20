@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>AI Tomodachi</title>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+  <link href="https://unpkg.com/nes.css@2.3.0/css/nes.min.css" rel="stylesheet" />
+  <style>
+    body { background-color: #212529; font-family: 'Press Start 2P', cursive; display: flex; justify-content: center; align-items: center; height: 100vh; }
+    .tamagotchi-screen { width: 320px; text-align: center; }
+    .pet-img { width: 96px; height: 96px; cursor: pointer; image-rendering: pixelated; }
+  </style>
+</head>
+<body>
+
+  <div class="nes-container is-rounded is-dark tamagotchi-screen">
+    <!-- Speech Bubble -->
+    <div class="nes-balloon from-left is-dark" style="font-size: 10px; margin-bottom: 15px;">
+      <p id="fact-text">Tap me for a fact!</p>
+    </div>
+
+    <!-- Free GIF Pet -->
+    <img id="pet" class="pet-img" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/25.gif" alt="Pet">
+  </div>
+
+</body>
+</html>

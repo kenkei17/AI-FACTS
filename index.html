@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Tomodachi</title>
+  
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+  
+  <link href="https://unpkg.com/nes.css@2.3.0/css/nes.min.css" rel="stylesheet" />
+  <audio id="bgm" src="Pokemon Ruby_Sapphire_Emerald- Littleroot Town.mp3" loop autoplay></audio>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    
+    body { 
+      background-color: #212529; 
+      font-family: 'Press Start 2P', cursive; 
+      display: flex; 
+      justify-content: center; 
+      align-items: center; 
+      height: 100vh; 
+      margin: 0;
+    }
+.tamagotchi-screen { 
+  width: 380px; 
+  text-align: center; 
+  padding: 20px;
+}
+
+    /* Keeps speech bubble text aligned nicely */
+   .nes-balloon {
+  width: 100%;
+  padding: 10px;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  white-space: normal;
+  line-height: 1.6;
+  box-sizing: border-box;
+}
+
+#fact-text {
+  margin: 0;
+}
+
+    .pet-img { 
+      width: 96px; 
+      height: 96px; 
+      cursor: pointer; 
+      image-rendering: pixelated; 
+      transition: transform 0.1s ease;
+      margin-top: 10px;
+    }
+
+    /* Fun little bounce animation when tapped */
+    .pet-img:active {
+      transform: scale(0.9);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="nes-container is-rounded is-dark tamagotchi-screen">
+    <div class="nes-balloon from-left is-dark" style="font-size: 10px; margin-bottom: 15px;">
+      <p id="fact-text">Tap Pikachu for a fact!</p>
+    </div>
+
+    <img id="pet" class="pet-img" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/25.gif" alt="Pet">
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
