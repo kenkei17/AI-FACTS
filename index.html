@@ -59,10 +59,6 @@
       transform: scale(0.9);
     }
    .mute-btn {
-  position: fixed;
-  top: 20px;
-  right: 20px;
-  z-index: 9999;
   background: #2b2b2f;
   border: 2px solid #ffffff;
   color: #e63946;
@@ -84,6 +80,73 @@
   transform: translate(1px, 1px);
   box-shadow: 0px 0px 0px rgba(255, 255, 255, 0.1);
 }
+/* Container anchored to top-right */
+.top-right-controls {
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  gap: 10px; /* Space between the buttons */
+}
+
+/* Shared Retro NES Button Style */
+.retro-btn {
+  background-color: #000000;
+  color: #ffffff;
+  font-family: 'Press Start 2P', 'Courier New', monospace;
+  font-size: 14px;
+  width: 44px;
+  height: 44px;
+  
+  /* NES Double Border Style */
+  border: 4px solid #ffffff;
+  outline: 2px solid #000000;
+  box-shadow: 0 0 0 2px #ffffff;
+  
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  image-rendering: pixelated;
+  cursor: pointer;
+  user-select: none;
+  transition: background-color 0.1s ease;
+}
+
+/* Hover & Active States */
+.retro-btn:hover {
+  background-color: #ffffff;
+  color: #000000;
+}
+
+.retro-btn:active {
+  transform: translateY(2px);
+}
+
+.retro-btn {
+  color: #ff4d4d; /* Matches the red icon color in your mute button */
+}
+
+.retro-icon {
+  display: block;
+  shape-rendering: crispedges; /* Preserves sharp lines for pixel aesthetic */
+}
+.weather-modal {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.7);
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.weather-modal-box {
+  width: 300px;
+  text-align: center;
+}
   </style>
 </head>
 <body>
@@ -95,12 +158,32 @@
 
     <img id="pet" class="pet-img" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/25.gif" alt="Pet">
   </div>
+  
+<div class="top-right-controls">
   <button id="mute-btn" class="mute-btn" aria-label="Toggle Sound">
   <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
     <path d="M2 6H5L8 3V13L5 10H2V6Z" fill="#e63946"/>
     <path d="M10 5L13 11M13 5L10 11" stroke="#e63946" stroke-width="1.5" stroke-linecap="square"/>
   </svg>
 </button>
+  <button id="weather-btn" class="retro-btn" aria-label="Toggle Weather">
+   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 48 48" class="weather-icon">
+  <title>retro-mode-weather</title>
+  <path fill="none" stroke="#ff4d4d" stroke-width="3" stroke-linecap="square" stroke-linejoin="miter" d="m33.37 22.117l-9.589 10.912h7.939l-1.247 8.899l9.535-11.778h-8.113zM17.063 5.547v3.751m8.884-.072l-2.653 2.653M8.18 9.226l2.652 2.653M4.5 18.11h3.752m14.158 2.365a5.8 5.8 0 0 0 .502-2.366a5.845 5.845 0 0 0-5.85-5.84a5.843 5.843 0 0 0-5.841 5.84a5.86 5.86 0 0 0 3.674 5.432"/>
+  <path fill="none" stroke="#ff4d4d" stroke-width="3" stroke-linecap="square" stroke-linejoin="miter" d="M24.925 31.726H13.387a3.89 3.89 0 0 1-3.883-3.883a3.882 3.882 0 0 1 5.286-3.621c.02-.23.052-.46.105-.68a4.895 4.895 0 0 1 4.793-3.904c1.005 0 1.947.303 2.722.837c.356.24.67.523.952.837a6.93 6.93 0 0 1 6.186-3.81c3.16 0 5.82 2.104 6.657 4.982c.712-.387 1.507-.628 2.365-.628a4.934 4.934 0 0 1 4.93 4.94a4.93 4.93 0 0 1-4.766 4.928M13.69 38.465v-1.872m4.087 5.86v-1.871m5.729-.905v-1.871"/>
+</svg>
+  </button>
+</div>
+<div id="weather-modal" class="weather-modal" style="display:none;">
+  <div class="nes-container is-rounded is-dark weather-modal-box">
+    <p style="font-size:10px;">Enter your city:</p>
+    <input type="text" id="city-input" class="nes-input" placeholder="e.g. Manila" />
+    <br><br>
+    <button id="city-submit" class="nes-btn is-primary" style="font-size:10px;">Check</button>
+    <button id="city-cancel" class="nes-btn" style="font-size:10px;">Cancel</button>
+  </div>
+</div>
   <script src="app.js"></script>
 </body>
+
 </html>

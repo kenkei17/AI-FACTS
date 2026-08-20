@@ -167,3 +167,62 @@ muteBtn.addEventListener('click', () => {
   audio.muted = !audio.muted;
   muteBtn.innerHTML = audio.muted ? speakerOff : speakerOn;
 });
+
+const weatherBtn = document.getElementById('weather-btn');
+const weatherModal = document.getElementById('weather-modal');
+const citySubmit = document.getElementById('city-submit');
+const cityCancel = document.getElementById('city-cancel');
+const cityInput = document.getElementById('city-input');
+
+weatherBtn.addEventListener('click', () => {
+  weatherModal.style.display = 'flex';
+});
+
+cityCancel.addEventListener('click', () => {
+  weatherModal.style.display = 'none';
+});
+
+citySubmit.addEventListener('click', async () => {
+  const city = cityInput.value.trim();
+  if (!city) return;
+  await checkWeather(city);
+  weatherModal.style.display = 'none';
+});
+
+async function checkWeather(city) {
+  try {
+    // Step 1: geocode city name to lat/lon (Open-Meteo, no API key needed)
+    const geoRes = await fetch(`https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(city)}&count=1`);
+    const geoData = await geoRes.json();
+    if (!geoData.results || geoData.results.length === 0) {
+      document.getElementById('fact-text').textContent = "City not found!";
+      return;
+    }
+    const { latitude, longitude } = geoData.results[0];
+
+    // Step 2: fetch current weather
+    const weatherRes = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current_weather=true`);
+    const weatherData = await weatherRes.json();
+    const code = weatherData.current_weather.weathercode;
+
+    applyWeatherTheme(code);
+  } catch (err) {
+    document.getElementById('fact-text').textContent = "Couldn't fetch weather :(";
+  }
+}
+
+function applyWeatherTheme(code) {
+  // Open-Meteo weathercodes: https://open-meteo.com/en/docs
+  let theme = { bg: '#212529', label: 'Clear' };
+
+  if (code === 0) theme = { bg: '#2a4d6e', label: 'Clear Skies' };
+  else if (code >= 1 && code <= 3) theme = { bg: '#5c5f66', label: 'Cloudy' };
+  else if (code >= 45 && code <= 48) theme = { bg: '#7d8791', label: 'Foggy' };
+  else if (code >= 51 && code <= 67) theme = { bg: '#2e5266', label: 'Rainy' };
+  else if (code >= 71 && code <= 77) theme = { bg: '#dbe9f4', label: 'Snowy' };
+  else if (code >= 80 && code <= 82) theme = { bg: '#1f3a52', label: 'Showers' };
+  else if (code >= 95) theme = { bg: '#1a1a2e', label: 'Thunderstorm' };
+
+  document.body.style.backgroundColor = theme.bg;
+  document.getElementById('fact-text').textContent = `Weather: ${theme.label}!`;
+}
