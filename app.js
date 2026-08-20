@@ -61,7 +61,7 @@ function playBlipSound() {
 
 // Your existing typewriter code...
 // Your existing sound code...
- const topics = ["space", "animals", "the ocean", "history", "the human body", "food", "language", "insects", "ancient civilizations", "physics","philippines", "japan","casino","programming","dinosaurs","students","how awesome it is to live","investments", "addiction","mob psycho", "food", "Hawaii", "ocean", "pyramid", "comedy"];
+ const topics = ["space", "animals", "the ocean", "history", "the human body", "food", "language", "insects", "ancient civilizations", "physics","philippines", "japan","casino","programming","dinosaurs","students","how awesome it is to live","investments", "addiction","mob psycho", "food", "Hawaii", "ocean", "pyramid", "comedy", "crying", "letting go of someone", "connection"];
 
 const promptTemplates = [
   "Give me 1 short, fun, mind-blowing, or obscure real-world fact about %TOPIC%. Keep it under 25 words so it fits in a small retro speech bubble.",
@@ -72,8 +72,9 @@ const promptTemplates = [
   "joke about %TOPIC%, Under 25 words.",
   "say something in a bit corn about %TOPIC% Under 25 words.",
   "say something about %TOPIC% like a motivation. Under 25 words.",
-  "say something nice to the(2nd person POV like people you talk to) related to %TOPIC%",
-  "say a life lesson related to %TOPIC% that's like related to a book about the same topic %TOPIC%"
+  "say something nice to the(2nd person POV like people you talk to) related to %TOPIC% Under 25 words.",
+  "say a life lesson related to %TOPIC% that's like related to a book about the same topic %TOPIC% Under 25 words.",
+  "say something like(hugot) in english ofc that stings in a clever way to relate to %TOPIC% and love. Under 25 words.", "cheer me up in a clever way related to %TOPIC. under 25 words"
 ];
 async function fetchPetFact() {
   playBlipSound();
