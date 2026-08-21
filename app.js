@@ -213,7 +213,7 @@ async function checkWeather(city) {
 
 function applyWeatherTheme(code) {
   // Open-Meteo weathercodes: https://open-meteo.com/en/docs
-  let theme = { bg: '#212529', label: 'Clear' };
+  let theme = { bg: 'url(img/default.jfif)', label: 'Clear' };
 
   if (code === 0) theme = { bg: 'url(img/clearSky.jfif)', label: 'Clear Skies' };
   else if (code >= 1 && code <= 3) theme = { bg: 'url(img/cloudy.jfif)', label: 'Cloudy' };
