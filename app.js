@@ -197,14 +197,14 @@ async function checkWeather(city) {
       document.getElementById('fact-text').textContent = "City not found!";
       return;
     }
-    const { latitude, longitude } = geoData.results[0];
+    const { latitude, longitude, name } = geoData.results[0];
 
     const weatherRes = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current_weather=true`);
     const weatherData = await weatherRes.json();
     const code = weatherData.current_weather.weathercode;
     const temp = Math.round(weatherData.current_weather.temperature);
 
-    applyWeatherTheme(code, temp);
+    applyWeatherTheme(code, temp, name);
   } catch (err) {
     document.getElementById('fact-text').textContent = "Couldn't fetch weather :(";
   }
@@ -220,7 +220,7 @@ function changeBackground(bgUrl) {
     overlay.removeEventListener('transitionend', handler);
   }, { once: true });
 }
-function applyWeatherTheme(code, temp) {
+function applyWeatherTheme(code, temp, name) {
   let theme = { bg: 'url(img/default.jfif)', label: 'Clear', icon: weatherIcons.clear };
 
   if (code === 0) theme = { bg: 'url(img/clearSky.jfif)', label: 'Clear Skies', icon: weatherIcons.clear };
@@ -235,7 +235,8 @@ changeBackground(theme.bg);
   document.getElementById('fact-text').textContent = `Weather: ${theme.label}!`;
 
   document.getElementById('status-weather-icon').textContent = theme.icon;
-  document.getElementById('status-weather-temp').textContent = `${temp}°`;
+  const formattedCity = name ? name.charAt(0).toUpperCase() + name.slice(1).toLowerCase() : '';
+  document.getElementById('status-weather-temp').textContent = `${formattedCity} ${temp}°C`;
   document.getElementById('status-weather').style.display = 'flex';
 }
 
