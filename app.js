@@ -215,14 +215,14 @@ function applyWeatherTheme(code) {
   // Open-Meteo weathercodes: https://open-meteo.com/en/docs
   let theme = { bg: '#212529', label: 'Clear' };
 
-  if (code === 0) theme = { bg: '#2a4d6e', label: 'Clear Skies' };
-  else if (code >= 1 && code <= 3) theme = { bg: '#5c5f66', label: 'Cloudy' };
-  else if (code >= 45 && code <= 48) theme = { bg: '#7d8791', label: 'Foggy' };
-  else if (code >= 51 && code <= 67) theme = { bg: '#2e5266', label: 'Rainy' };
-  else if (code >= 71 && code <= 77) theme = { bg: '#dbe9f4', label: 'Snowy' };
-  else if (code >= 80 && code <= 82) theme = { bg: '#1f3a52', label: 'Showers' };
-  else if (code >= 95) theme = { bg: '#1a1a2e', label: 'Thunderstorm' };
+  if (code === 0) theme = { bg: 'url(img/clearSky.jfif)', label: 'Clear Skies' };
+  else if (code >= 1 && code <= 3) theme = { bg: 'url(img/cloudy.jfif)', label: 'Cloudy' };
+  else if (code >= 45 && code <= 48) theme = { bg: 'url(img/foggy.jfif)', label: 'Foggy' };
+  else if (code >= 51 && code <= 67) theme = { bg: 'url(img/rain.jfif)', label: 'Rainy' };
+  else if (code >= 71 && code <= 77) theme = { bg: 'url(img/snowy.jfif)', label: 'Snowy' };
+  else if (code >= 80 && code <= 82) theme = { bg: 'url(img/showers.jfif)', label: 'Showers' };
+  else if (code >= 95) theme = { bg: 'url(img/thunderstorm.jfif)', label: 'Thunderstorm' };
 
-  document.body.style.backgroundColor = theme.bg;
+  document.body.style.backgroundImage = theme.bg;
   document.getElementById('fact-text').textContent = `Weather: ${theme.label}!`;
 }
