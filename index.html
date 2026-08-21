@@ -18,21 +18,40 @@
       box-sizing: border-box;
     }
     
-    body { 
-      background-image: url('img/default.jfif');
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
-      image-rendering: pixelated;
-      transition: background-image 0.3s ease;
-      background-color: #212529; 
-      font-family: 'Press Start 2P', cursive; 
-      display: flex; 
-      justify-content: center; 
-      align-items: center; 
-      height: 100vh; 
-      margin: 0;
-    }
+html {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+body { 
+  background-image: url('img/default.jfif');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  image-rendering: pixelated;
+  background-color: #212529; 
+  font-family: 'Press Start 2P', cursive; 
+  display: flex; 
+  justify-content: center; 
+  align-items: center; 
+  height: 100vh; 
+  margin: 0;
+  padding: 0;
+  position: relative;
+  overflow-x: hidden;
+}
+
+#bg-overlay {
+  position: fixed;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  image-rendering: pixelated;
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 0.6s steps(6, end);
+}
 .tamagotchi-screen { 
   width: 380px; 
   text-align: center; 
@@ -156,9 +175,52 @@
   width: 300px;
   text-align: center;
 }
+
+/* css time*/
+.status-bar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  font-family: 'Press Start 2P', cursive;
+  font-size: clamp(8px, 2.5vw, 10px);
+  color: #ffffff;
+  text-shadow:
+    -1px -1px 0 #000,
+     1px -1px 0 #000,
+    -1px  1px 0 #000,
+     1px  1px 0 #000;
+  margin-bottom: 12px;
+}
+
+.status-weather {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: clamp(7px, 2vw, 9px);
+  opacity: 0.9;
+}
+
+#status-weather-icon {
+  font-size: clamp(9px, 2.2vw, 11px);
+}
+.page-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
   </style>
 </head>
 <body>
+  <div id="bg-overlay"></div>
+<div class="page-wrapper">
+  <div id="status-bar" class="status-bar">
+    <span id="status-time">--:--</span>
+    <span id="status-weather" class="status-weather" style="display:none;">
+      <span id="status-weather-icon"></span>
+      <span id="status-weather-temp"></span>
+    </span>
+  </div>
 
   <div class="nes-container is-rounded is-dark tamagotchi-screen">
     <div class="nes-balloon from-left is-dark" style="font-size: 10px; margin-bottom: 15px;">
@@ -186,7 +248,7 @@
 <div id="weather-modal" class="weather-modal" style="display:none;">
   <div class="nes-container is-rounded is-dark weather-modal-box">
     <p style="font-size:10px;">Enter your city:</p>
-    <input type="text" id="city-input" class="nes-input" placeholder="e.g. Manila" />
+    <input type="text" id="city-input" class="nes-input" placeholder="e.g. Tokyo" />
     <br><br>
     <button id="city-submit" class="nes-btn is-primary" style="font-size:10px;">Check</button>
     <button id="city-cancel" class="nes-btn" style="font-size:10px;">Cancel</button>

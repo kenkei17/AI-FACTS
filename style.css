@@ -1,0 +1,27 @@
+.status-bar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  font-family: 'Press Start 2P', cursive;
+  font-size: clamp(8px, 2.5vw, 10px);
+  color: #ffffff;
+  text-shadow:
+    -1px -1px 0 #000,
+     1px -1px 0 #000,
+    -1px  1px 0 #000,
+     1px  1px 0 #000;
+  margin-bottom: 12px;
+}
+
+.status-weather {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: clamp(7px, 2vw, 9px);
+  opacity: 0.9;
+}
+
+#status-weather-icon {
+  font-size: clamp(9px, 2.2vw, 11px);
+}

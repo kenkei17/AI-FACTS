@@ -73,7 +73,7 @@ const promptTemplates = [
   "say something in a bit corn about %TOPIC% Under 25 words.",
   "say something about %TOPIC% like a motivation. Under 25 words.",
   "say something nice to the(2nd person POV like people you talk to) related to %TOPIC% Under 25 words.",
-  "say a life lesson related to %TOPIC% that's like related to a book about the same topic %TOPIC% Under 25 words.",
+  "say a life lesson that's like related to a book about the same topic %TOPIC% Under 25 words.",
   "say something like(hugot) in english ofc that stings in a clever way to relate to %TOPIC% and love. Under 25 words.", "cheer me up in a clever way related to %TOPIC. under 25 words"
 ];
 async function fetchPetFact() {
@@ -130,7 +130,7 @@ petElement.addEventListener("click", fetchPetFact);
 // =========================
 window.addEventListener('DOMContentLoaded', () => {
       const audio = document.getElementById('bgm');
-      audio.volume = 0.3; // Set background volume (30%)
+      audio.volume = 0.1; // Set background volume (30%)
 
       const playAudio = () => {
         audio.play().then(() => {
@@ -191,7 +191,6 @@ citySubmit.addEventListener('click', async () => {
 
 async function checkWeather(city) {
   try {
-    // Step 1: geocode city name to lat/lon (Open-Meteo, no API key needed)
     const geoRes = await fetch(`https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(city)}&count=1`);
     const geoData = await geoRes.json();
     if (!geoData.results || geoData.results.length === 0) {
@@ -200,29 +199,64 @@ async function checkWeather(city) {
     }
     const { latitude, longitude } = geoData.results[0];
 
-    // Step 2: fetch current weather
     const weatherRes = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current_weather=true`);
     const weatherData = await weatherRes.json();
     const code = weatherData.current_weather.weathercode;
+    const temp = Math.round(weatherData.current_weather.temperature);
 
-    applyWeatherTheme(code);
+    applyWeatherTheme(code, temp);
   } catch (err) {
     document.getElementById('fact-text').textContent = "Couldn't fetch weather :(";
   }
 }
+function changeBackground(bgUrl) {
+  const overlay = document.getElementById('bg-overlay');
+  overlay.style.backgroundImage = bgUrl;
+  overlay.style.opacity = '1';
 
-function applyWeatherTheme(code) {
-  // Open-Meteo weathercodes: https://open-meteo.com/en/docs
-  let theme = { bg: 'url(img/default.jfif)', label: 'Clear' };
-
-  if (code === 0) theme = { bg: 'url(img/clearSky.jfif)', label: 'Clear Skies' };
-  else if (code >= 1 && code <= 3) theme = { bg: 'url(img/cloudy.jfif)', label: 'Cloudy' };
-  else if (code >= 45 && code <= 48) theme = { bg: 'url(img/foggy.jfif)', label: 'Foggy' };
-  else if (code >= 51 && code <= 67) theme = { bg: 'url(img/rain.jfif)', label: 'Rainy' };
-  else if (code >= 71 && code <= 77) theme = { bg: 'url(img/snowy.jfif)', label: 'Snowy' };
-  else if (code >= 80 && code <= 82) theme = { bg: 'url(img/showers.jfif)', label: 'Showers' };
-  else if (code >= 95) theme = { bg: 'url(img/thunderstorm.jfif)', label: 'Thunderstorm' };
-
-  document.body.style.backgroundImage = theme.bg;
-  document.getElementById('fact-text').textContent = `Weather: ${theme.label}!`;
+  overlay.addEventListener('transitionend', function handler() {
+    document.body.style.backgroundImage = bgUrl;
+    overlay.style.opacity = '0';
+    overlay.removeEventListener('transitionend', handler);
+  }, { once: true });
 }
+function applyWeatherTheme(code, temp) {
+  let theme = { bg: 'url(img/default.jfif)', label: 'Clear', icon: weatherIcons.clear };
+
+  if (code === 0) theme = { bg: 'url(img/clearSky.jfif)', label: 'Clear Skies', icon: weatherIcons.clear };
+  else if (code >= 1 && code <= 3) theme = { bg: 'url(img/cloudy.jfif)', label: 'Cloudy', icon: weatherIcons.cloudy };
+  else if (code >= 45 && code <= 48) theme = { bg: 'url(img/foggy.jfif)', label: 'Foggy', icon: weatherIcons.foggy };
+  else if (code >= 51 && code <= 67) theme = { bg: 'url(img/rain.jfif)', label: 'Rainy', icon: weatherIcons.rain };
+  else if (code >= 71 && code <= 77) theme = { bg: 'url(img/snowy.jfif)', label: 'Snowy', icon: weatherIcons.snowy };
+  else if (code >= 80 && code <= 82) theme = { bg: 'url(img/showers.jfif)', label: 'Showers', icon: weatherIcons.showers };
+  else if (code >= 95) theme = { bg: 'url(img/thunderstorm.jfif)', label: 'Thunderstorm', icon: weatherIcons.thunderstorm };
+
+changeBackground(theme.bg);
+  document.getElementById('fact-text').textContent = `Weather: ${theme.label}!`;
+
+  document.getElementById('status-weather-icon').textContent = theme.icon;
+  document.getElementById('status-weather-temp').textContent = `${temp}°`;
+  document.getElementById('status-weather').style.display = 'flex';
+}
+
+// clock
+
+// --- Clock ---
+function updateClock() {
+  const now = new Date();
+  document.getElementById('status-time').textContent =
+    now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+}
+updateClock();
+setInterval(updateClock, 30000); // refresh every 30s
+
+// --- Weather icons matched to your existing theme keys ---
+const weatherIcons = {
+  clear: '☀️',
+  cloudy: '☁️',
+  foggy: '🌫️',
+  rain: '🌧️',
+  snowy: '❄️',
+  showers: '🌦️',
+  thunderstorm: '⛈️'
+};
