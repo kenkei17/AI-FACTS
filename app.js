@@ -246,7 +246,7 @@ changeBackground(theme.bg);
 function updateClock() {
   const now = new Date();
   document.getElementById('status-time').textContent =
-    now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' } LT);
 }
 updateClock();
 setInterval(updateClock, 30000); // refresh every 30s
