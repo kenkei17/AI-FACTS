@@ -74,7 +74,7 @@ const promptTemplates = [
   "say something about %TOPIC% like a motivation. Under 25 words.",
   "say something nice to the(2nd person POV like people you talk to) related to %TOPIC% Under 25 words.",
   "say a life lesson that's like related to a book about the same topic %TOPIC% Under 25 words.",
-  "say something like(hugot) in english ofc that stings in a clever way to relate to %TOPIC% and love. Under 25 words.", "cheer me up in a clever way related to %TOPIC. under 25 words"
+  "say something like(hugot) in english ofc that stings in a clever way to relate to %TOPIC% and love. Under 25 words.", "cheer me up in a clever way related to %TOPIC%. under 25 words"
 ];
 async function fetchPetFact() {
   playBlipSound();
