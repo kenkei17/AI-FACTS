@@ -11,7 +11,7 @@
   <audio id="bgm" src="Pokemon Ruby_Sapphire_Emerald- Littleroot Town.mp3" loop autoplay></audio>
 
   <link rel="icon" type="image/x-icon" href="./favicon.ico">
-
+  <link rel="stylesheet" href="style.css">
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
     * {
@@ -243,6 +243,13 @@ body {
   <path fill="none" stroke="#ff4d4d" stroke-width="3" stroke-linecap="square" stroke-linejoin="miter" d="M24.925 31.726H13.387a3.89 3.89 0 0 1-3.883-3.883a3.882 3.882 0 0 1 5.286-3.621c.02-.23.052-.46.105-.68a4.895 4.895 0 0 1 4.793-3.904c1.005 0 1.947.303 2.722.837c.356.24.67.523.952.837a6.93 6.93 0 0 1 6.186-3.81c3.16 0 5.82 2.104 6.657 4.982c.712-.387 1.507-.628 2.365-.628a4.934 4.934 0 0 1 4.93 4.94a4.93 4.93 0 0 1-4.766 4.928M13.69 38.465v-1.872m4.087 5.86v-1.871m5.729-.905v-1.871"/>
 </svg>
   </button>
+  <button id="horoscope-btn" class="retro-btn" aria-label="Toggle Horoscope">
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+    <title>retro-mode-horoscope</title>
+    <path fill="none" stroke="#ff4d4d" stroke-width="1.5" d="M12 2v20M2 12h20M12 4a8 8 0 0 1 0 16a8 8 0 0 1 0-16Z"/>
+    <circle cx="12" cy="12" r="1.5" fill="#ff4d4d"/>
+  </svg>
+</button>
 </div>
 <div id="weather-modal" class="weather-modal" style="display:none;">
   <div class="nes-container is-rounded is-dark weather-modal-box">
@@ -251,6 +258,37 @@ body {
     <br><br>
     <button id="city-submit" class="nes-btn is-primary" style="font-size:10px;">Check</button>
     <button id="city-cancel" class="nes-btn" style="font-size:10px;">Cancel</button>
+  </div>
+</div>
+<div id="horoscope-modal" class="weather-modal" style="display:none;">
+  <div class="nes-container is-rounded is-dark weather-modal-box">
+    <p style="font-size:10px;">Pick your sign:</p>
+    <div class="nes-select">
+      <select id="zodiac-select">
+        <option value="aries">Aries</option>
+        <option value="taurus">Taurus</option>
+        <option value="gemini">Gemini</option>
+        <option value="cancer">Cancer</option>
+        <option value="leo">Leo</option>
+        <option value="virgo">Virgo</option>
+        <option value="libra">Libra</option>
+        <option value="scorpio">Scorpio</option>
+        <option value="sagittarius">Sagittarius</option>
+        <option value="capricorn">Capricorn</option>
+        <option value="aquarius">Aquarius</option>
+        <option value="pisces">Pisces</option>
+      </select>
+    </div>
+    <br><br>
+    <button id="zodiac-submit" class="nes-btn is-primary" style="font-size:10px;">Check</button>
+    <button id="zodiac-cancel" class="nes-btn" style="font-size:10px;">Cancel</button>
+  </div>
+</div>
+<div id="scroll-overlay" class="scroll-overlay" style="display:none;">
+  <div class="scroll-content">
+    <button id="scroll-close" class="scroll-close" aria-label="Close">&times;</button>
+    <p id="scroll-sign"></p>
+    <p id="scroll-text"></p>
   </div>
 </div>
   <script src="app.js"></script>

@@ -1,0 +1,62 @@
+.scroll-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.75);
+  z-index: 10001;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: fadeIn 0.2s ease;
+}
+
+.scroll-content {
+  position: relative;
+  width: min(320px, 85vw);
+  max-height: 70vh;
+  overflow-y: auto;
+  background: #f4e9d8;
+  color: #2e2a26;
+  border: 4px solid #2e2a26;
+  outline: 2px solid #f4e9d8;
+  box-shadow: 0 0 0 2px #2e2a26, 0 8px 24px rgba(0,0,0,0.5);
+  padding: 24px 18px;
+  font-family: 'Press Start 2P', cursive;
+  font-size: 10px;
+  line-height: 1.8;
+  text-align: center;
+  transform: rotate(-1deg);
+  animation: floatIn 0.35s ease;
+}
+
+#scroll-sign {
+  color: #b8452f;
+  margin: 0 0 12px 0;
+  font-size: 11px;
+}
+
+#scroll-text {
+  margin: 0;
+}
+
+.scroll-close {
+  position: absolute;
+  top: 6px;
+  right: 8px;
+  background: none;
+  border: none;
+  font-size: 18px;
+  color: #2e2a26;
+  cursor: pointer;
+  font-family: inherit;
+  line-height: 1;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes floatIn {
+  from { opacity: 0; transform: translateY(12px) rotate(-1deg); }
+  to { opacity: 1; transform: translateY(0) rotate(-1deg); }
+}

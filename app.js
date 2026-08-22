@@ -5,6 +5,7 @@ const petElement = document.getElementById("pet");
 const factTextElement = document.getElementById("fact-text");
 
   const WORKER_URL = "https://quiet-sun-6869.jumpycat.workers.dev";
+  const HOROSCOPE_WORKER_URL = "https://long-king-a5b0.jumpycat.workers.dev";
 // Store timer so rapid clicks don't break the animation
 let typewriterTimeout; 
 
@@ -261,3 +262,61 @@ const weatherIcons = {
   showers: '🌦️',
   thunderstorm: '⛈️'
 };
+
+const horoscopeBtn = document.getElementById('horoscope-btn');
+const horoscopeModal = document.getElementById('horoscope-modal');
+const zodiacSubmit = document.getElementById('zodiac-submit');
+const zodiacCancel = document.getElementById('zodiac-cancel');
+const zodiacSelect = document.getElementById('zodiac-select');
+
+horoscopeBtn.addEventListener('click', () => {
+  horoscopeModal.style.display = 'flex';
+});
+
+zodiacCancel.addEventListener('click', () => {
+  horoscopeModal.style.display = 'none';
+});
+
+zodiacSubmit.addEventListener('click', async () => {
+  const sign = zodiacSelect.value;
+  await fetchHoroscope(sign);
+  horoscopeModal.style.display = 'none';
+});
+
+const scrollOverlay = document.getElementById('scroll-overlay');
+const scrollText = document.getElementById('scroll-text');
+const scrollSign = document.getElementById('scroll-sign');
+const scrollClose = document.getElementById('scroll-close');
+
+scrollClose.addEventListener('click', () => {
+  scrollOverlay.style.display = 'none';
+});
+scrollOverlay.addEventListener('click', (e) => {
+  if (e.target === scrollOverlay) scrollOverlay.style.display = 'none';
+});
+
+async function fetchHoroscope(sign) {
+  playBlipSound();
+
+  try {
+    const response = await fetch(`${HOROSCOPE_WORKER_URL}?zodiac=${sign}`);
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.error || `HTTP ${response.status}`);
+    }
+
+    const reading = data.horoscope?.trim();
+    if (!reading) throw new Error("No horoscope received.");
+
+    scrollSign.textContent = sign.toUpperCase();
+    scrollText.textContent = reading;
+    scrollOverlay.style.display = 'flex';
+  } catch (error) {
+    console.error("Horoscope API Error:", error);
+    factTextElement.textContent = "The stars are cloudy today. Try again!";
+  }
+}
+zodiacSelect.addEventListener('change', () => {
+  zodiacSelect.blur();
+});
