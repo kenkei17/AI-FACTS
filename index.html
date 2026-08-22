@@ -86,29 +86,14 @@ body {
     .pet-img:active {
       transform: scale(0.9);
     }
-   .mute-btn {
-  background: #2b2b2f;
-  border: 2px solid #ffffff;
-  color: #e63946;
-  font-size: 20px;
-  padding: 8px 12px;
-  cursor: pointer;
-  border-radius: 0;
-  box-shadow: 2px 2px 0px rgba(255, 255, 255, 0.15);
-  transition: all 0.2s ease-in-out;
-}
+/* ============================================
+   UNIFORM ICON BUTTON SYSTEM
+   All top-right controls (.mute-btn and .retro-btn)
+   share this exact look, so any future button just
+   needs class="retro-btn" (or .mute-btn, kept as an
+   alias below) to match automatically.
+   ============================================ */
 
-.mute-btn:hover {
-  background: #3a3a40;
-  transform: translate(-1px, -1px);
-  box-shadow: 3px 3px 0px rgba(255, 255, 255, 0.2);
-}
-
-.mute-btn:active {
-  transform: translate(1px, 1px);
-  box-shadow: 0px 0px 0px rgba(255, 255, 255, 0.1);
-}
-/* Container anchored to top-right */
 .top-right-controls {
   position: fixed;
   top: 16px;
@@ -119,42 +104,56 @@ body {
   gap: 10px; /* Space between the buttons */
 }
 
-/* Shared Retro NES Button Style */
-.retro-btn {
+.retro-btn,
+.mute-btn {
   background-color: #000000;
-  color: #ffffff;
+  color: #ff4d4d;
   font-family: 'Press Start 2P', 'Courier New', monospace;
   font-size: 14px;
   width: 44px;
   height: 44px;
-  
+  padding: 0;
+
   /* NES Double Border Style */
   border: 4px solid #ffffff;
   outline: 2px solid #000000;
   box-shadow: 0 0 0 2px #ffffff;
-  
+  border-radius: 0;
+
   display: flex;
   align-items: center;
   justify-content: center;
-  
+
   image-rendering: pixelated;
   cursor: pointer;
   user-select: none;
-  transition: background-color 0.1s ease;
+  transition: background-color 0.1s ease, transform 0.1s ease;
 }
 
-/* Hover & Active States */
-.retro-btn:hover {
-  background-color: #ffffff;
-  color: #000000;
+.retro-btn,
+.mute-btn {
+  background-color: #2e2a26;   /* was #000000 — warm charcoal instead of pure black */
+  color: #ffd97d;              /* was #ff4d4d — soft retro gold icon color */
+  border: 4px solid #f4e9d8;   /* was #ffffff — warm off-white border */
+  outline: 2px solid #2e2a26;  /* was #000000 — match new bg */
+  box-shadow: 0 0 0 2px #f4e9d8; /* was #ffffff */
 }
 
-.retro-btn:active {
+.retro-btn:hover,
+.mute-btn:hover {
+  background-color: #f4e9d8;   /* was #ffffff */
+  color: #2e2a26;              /* was #000000 */
+}
+
+.retro-btn:active,
+.mute-btn:active {
   transform: translateY(2px);
 }
 
-.retro-btn {
-  color: #ff4d4d; /* Matches the red icon color in your mute button */
+.retro-btn svg path,
+.mute-btn svg path {
+  fill: currentColor;
+  stroke: currentColor;
 }
 
 .retro-icon {
